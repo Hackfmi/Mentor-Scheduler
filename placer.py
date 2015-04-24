@@ -54,8 +54,9 @@ def attempt_placing(teams, mentors, slots, mentors_to_teams):
     mentor_slots_table = {mentor: slots[:] for mentor in mentors}
     team_slots_table = {team: slots[:] for team in teams}
 
-    leftovers = []
+
     result = {}
+    leftovers = []
 
     for mentor in chosen_mentors:
         teams = mentors_to_teams[mentor]
@@ -112,7 +113,13 @@ placing = attempt_placing(teams=teams_with_choice,
                           slots=SLOTS, 
                           mentors_to_teams=mentors_to_teams)
 
-print(build_table_from_result(placing["placed"], chosen_mentors))
+table = build_table_from_result(placing["placed"], chosen_mentors)
 print("Leftovers: ")
 print(placing["leftovers"])
+
+
+with open("mentors.html", "w") as f:
+    f.write("<pre>")
+    f.write(table)
+    f.write("</pre>")
 
